@@ -1,0 +1,56 @@
+body {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#userInput {
+    text-align: center;
+    font-size: 30px;
+    width: 500px;
+    height: 100px;
+}
+
+#clickButton {
+    width: 200px;
+    height: 100px;
+}
+
+#firstResult {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+    text-align: center;
+}   
+
+ul {
+    border: 3px solid #c6c3ef;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+ul:empty {
+    display: none;
+}
+
+li {
+    font-size: 20px;
+}
+
+main {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+aside {
+    margin: 40px;
+}
+aside>section {
+    border: 3px solid #c6c3ef;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 20px;
+    font-weight: bold;
+}

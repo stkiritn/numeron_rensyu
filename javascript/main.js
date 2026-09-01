@@ -1,33 +1,43 @@
 import {generateRandomNumber} from './function.js';
 import {isNumber} from './function.js';
 
-let textNumber = '';
+let {array, textNumber} = generateRandomNumber();
 
-while (textNumber.length !== 4) {
-    textNumber = String(generateRandomNumber());
-}
-/** 数字を４分割にする */
-const digit = textNumber.split('');
-/** 数字を数字にして配列に格納する */
-const array = digit.map(digit => Number(digit));
 const userInput = document.getElementById('userInput'); 
 const correct = document.getElementById('correct');
 const incorrect = document.getElementById("incorrect");
 const history = document.getElementById("history");
+const answerButton = document.getElementById("showAnswer")
+const answer = document.getElementById("answer");
+const button = document.getElementById('clickButton');
+const nextButton = document.getElementById("nextButton");
+const errorMessage = document.getElementById('errorMessage');
 let sumChallenge = 0;
 console.log(`Array of digits: ${array}`);
+history.textContent = '';
 
-const button = document.getElementById('clickButton');
+nextButton.addEventListener("click", function(){
+    incorrect.textContent = "";
+    correct.textContent = "";
+    history.textContent = "";
+    answer.textContent = "";   
+    sumChallenge = 0;
+    const nextResult = generateRandomNumber();
+    array = nextResult.array; 
+    textNumber = nextResult.textNumber;
+ 
+})
+
 button.addEventListener('click', function(event) { 
     const userInputArray = userInput.value.split('').map(digit => Number(digit));
 
-    sumChallenge += 1;
-
+    
+    errorMessage.textContent = '';
     if (!isNumber(Number(userInput.value))) {
-    const errorMessage = document.getElementById('errorMessage');
     errorMessage.textContent = '数字４桁でを入力してください';
     }
     else if (isNumber(Number(userInput.value))) {
+    sumChallenge += 1;
     let hit = 0;
     let blow = 0;
 
@@ -62,5 +72,13 @@ button.addEventListener('click', function(event) {
     historyItem.textContent = `${userInput.value}　　 ${hit}ヒット ${blow}ブロー`;
     history.appendChild(historyItem);
     }
+    userInput.value = "";
+    userInput.focus();
 }); 
+
+
+answerButton.addEventListener("click", function() {
+    answer.textContent = `正解は ${textNumber} です`;
+})
+
 

@@ -10,7 +10,7 @@
 		<header>
 		</header>
 		<main>
-			<input type="number" id="userInput" placeholder="数字を入力してください" min="0" max="9999">
+			<input type="number" id="userInput" min="1000" max="9999" placeholder="数字を入力してください">
 			<input type="button" id="clickButton" value="入力">
 			<p id="errorMessage"></p>
 			<section id="firstResult">
@@ -24,6 +24,25 @@
 				</ul>
 			</section>
 		</main>
+		<aside id="aside">
+			<section id="rule">
+				<h2>ルール</h2>
+				<p>4桁の数字を当てるゲームです。</p>
+				<p>ヒット: 数字と位置が一致</p>
+				<p>ブロー: 数字は一致するが位置が違う</p>
+				<p>解答に0が2つある場合は，0を一つ入力すると1ブローと表示されます</p>
+				<p>千の位は0以外の数字です</p>
+			</section>
+			<section>
+				<h2 id="answer">
+				</h2>
+				<input type="button" id="showAnswer" value="正解を表示">
+			</section>
+			<section>
+				<h2 id="nextQuestion"></h2>
+				<input type="button" id="nextButton" value="次の問題を表示">
+			</section>
+		</aside>
 
 		<footer>
 		</footer>
