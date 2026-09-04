@@ -1,7 +1,8 @@
 import {generateRandomNumber} from './function.js';
 import {isNumber} from './function.js';
+import {nextGenerateRandomNumber} from './function.js';
 
-let {array, textNumber} = generateRandomNumber();
+let {array, textNumber, number: digitNumber} = generateRandomNumber();
 
 const userInput = document.getElementById('userInput'); 
 const correct = document.getElementById('correct');
@@ -12,9 +13,27 @@ const answer = document.getElementById("answer");
 const button = document.getElementById('clickButton');
 const nextButton = document.getElementById("nextButton");
 const errorMessage = document.getElementById('errorMessage');
+const selectNumber = document.getElementById('selectNumber');
+
+const selectNumberTitle = document.getElementById("selectNumberTitle");
 let sumChallenge = 0;
 console.log(`Array of digits: ${array}`);
 history.textContent = '';
+
+selectNumberTitle.textContent = "現在選択されている桁数は4桁です";
+
+selectNumber.addEventListener("click", function() {
+    incorrect.textContent = "";
+    correct.textContent = "";
+    history.textContent = "";
+    answer.textContent = "";   
+    sumChallenge = 0;
+    const nextResult = nextGenerateRandomNumber();
+    array = nextResult.array; 
+    textNumber = nextResult.textNumber;
+    const digitNumber = document.getElementById('digitNumber');
+    selectNumberTitle.textContent = "現在選択されている桁数は " + digitNumber.value + " 桁です";
+});
 
 nextButton.addEventListener("click", function(){
     incorrect.textContent = "";
@@ -22,11 +41,14 @@ nextButton.addEventListener("click", function(){
     history.textContent = "";
     answer.textContent = "";   
     sumChallenge = 0;
-    const nextResult = generateRandomNumber();
+    const nextResult = nextGenerateRandomNumber();
     array = nextResult.array; 
     textNumber = nextResult.textNumber;
- 
-})
+
+    const 
+    digitNumber = document.getElementById('digitNumber');
+    selectNumberTitle.textContent = "現在選択されている桁数は " + digitNumber.value + " 桁です";
+});
 
 button.addEventListener('click', function(event) { 
     const userInputArray = userInput.value.split('').map(digit => Number(digit));
@@ -34,14 +56,14 @@ button.addEventListener('click', function(event) {
     
     errorMessage.textContent = '';
     if (!isNumber(Number(userInput.value))) {
-    errorMessage.textContent = '数字４桁でを入力してください';
+    errorMessage.textContent = `数字 ${digitNumber.value} 桁でを入力してください`;
     }
     else if (isNumber(Number(userInput.value))) {
     sumChallenge += 1;
     let hit = 0;
     let blow = 0;
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < digitNumber.value; i++) {
         if (userInputArray[i] === array[i]) {
             hit += 1;
         }
@@ -51,7 +73,7 @@ button.addEventListener('click', function(event) {
         let correctCount = 0;
         let inputCount = 0;
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < digitNumber.value; i++) {
             if (array[i] === number) {
                 correctCount += 1;
             }

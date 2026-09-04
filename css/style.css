@@ -47,10 +47,16 @@ main {
 aside {
     margin: 40px;
 }
+
 aside>section {
     border: 3px solid #c6c3ef;
     text-align: center;
     font-size: 15px;
     margin-top: 20px;
     font-weight: bold;
+}
+
+#number {
+    font-size: 15px;
+    padding: 10px;
 }
