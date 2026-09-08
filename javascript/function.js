@@ -1,33 +1,44 @@
-export function isNumber(input) {
-    return typeof input === 'number' && input >= 1 && input <= 999999999;
+/**
+ * 入力された数字が指定された桁数か確認する
+ *
+ * @param {string} input - 入力された数字
+ * @param {number} digitNumber - 必要な桁数
+ * @returns {boolean}
+ */
+export function isNumber(input, digitNumber) {
+    return (
+        /^\d+$/.test(input) &&
+        input.length === digitNumber
+    );
 }
 
-export function generateRandomNumber() {
-    let textNumber = '';
-    const selectNumber = document.getElementById('selectNumber');
-    while (textNumber.length !== 4) {
-        const randomNumber = Math.floor(Math.random() * 1000000000);
-        textNumber = String(randomNumber);
-    }
+/**
+ * 指定された桁数のランダムな数字を作成する
+ *
+ * @param {number} digitNumber - 桁数
+ * @returns {{array: number[], textNumber: string, number: number}}
+ */
+export function generateRandomNumber(digitNumber = 4) {
+    const min = digitNumber === 1
+        ? 0
+        : 10 ** (digitNumber - 1);
 
-    let digit = textNumber.split('');
-    let array = digit.map(digit => Number(digit));
+    const max = 10 ** digitNumber - 1;
 
-    return {array, textNumber};
-}
+    const randomNumber =
+        Math.floor(Math.random() * (max - min + 1)) + min;
 
-export function nextGenerateRandomNumber() {
-    let textNumber = '';
-    const digitNumber = document.getElementById('digitNumber');
-    while (textNumber.length !== Number(digitNumber.value)) {
-        const randomNumber = Math.floor(Math.random() * 1000000000);
-        textNumber = String(randomNumber);
-    }
+    const textNumber = String(randomNumber);
 
-    let digit = textNumber.split('');
-    let array = digit.map(digit => Number(digit));
+    const array = textNumber
+        .split('')
+        .map((digit) => Number(digit));
 
-    return {array, textNumber, number: Number(digitNumber.value)};
+    return {
+        array,
+        textNumber,
+        number: digitNumber,
+    };
 }
 
 

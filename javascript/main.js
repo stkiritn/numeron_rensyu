@@ -1,79 +1,133 @@
-import {generateRandomNumber} from './function.js';
-import {isNumber} from './function.js';
-import {nextGenerateRandomNumber} from './function.js';
+import {
+    generateRandomNumber,
+    isNumber,
+} from './function.js';
 
-let {array, textNumber, number: digitNumber} = generateRandomNumber();
+let { array, textNumber, number: digitNumber } = generateRandomNumber();
 
-const userInput = document.getElementById('userInput'); 
+const userInput = document.getElementById('userInput');
 const correct = document.getElementById('correct');
-const incorrect = document.getElementById("incorrect");
-const history = document.getElementById("history");
-const answerButton = document.getElementById("showAnswer")
-const answer = document.getElementById("answer");
+const incorrect = document.getElementById('incorrect');
+const history = document.getElementById('history');
+const answerButton = document.getElementById('showAnswer');
+const answer = document.getElementById('answer');
 const button = document.getElementById('clickButton');
-const nextButton = document.getElementById("nextButton");
+const nextButton = document.getElementById('nextButton');
 const errorMessage = document.getElementById('errorMessage');
 const selectNumber = document.getElementById('selectNumber');
+const selectNumberTitle = document.getElementById('selectNumberTitle');
+const digitNumberElement = document.getElementById('digitNumber');
 
-const selectNumberTitle = document.getElementById("selectNumberTitle");
 let sumChallenge = 0;
-console.log(`Array of digits: ${array}`);
+
 history.textContent = '';
+updateDigitTitle();
 
-selectNumberTitle.textContent = "現在選択されている桁数は4桁です";
+console.log(`Array of digits: ${array}`);
 
-selectNumber.addEventListener("click", function() {
-    incorrect.textContent = "";
-    correct.textContent = "";
-    history.textContent = "";
-    answer.textContent = "";   
-    sumChallenge = 0;
-    const nextResult = nextGenerateRandomNumber();
-    array = nextResult.array; 
-    textNumber = nextResult.textNumber;
-    const digitNumber = document.getElementById('digitNumber');
-    selectNumberTitle.textContent = "現在選択されている桁数は " + digitNumber.value + " 桁です";
-});
 
-nextButton.addEventListener("click", function(){
-    incorrect.textContent = "";
-    correct.textContent = "";
-    history.textContent = "";
-    answer.textContent = "";   
-    sumChallenge = 0;
-    const nextResult = nextGenerateRandomNumber();
-    array = nextResult.array; 
-    textNumber = nextResult.textNumber;
-
-    const 
-    digitNumber = document.getElementById('digitNumber');
-    selectNumberTitle.textContent = "現在選択されている桁数は " + digitNumber.value + " 桁です";
-});
-
-button.addEventListener('click', function(event) { 
-    const userInputArray = userInput.value.split('').map(digit => Number(digit));
-
-    
+/**
+ * 問題をリセットする
+ */
+function resetGame() {
+    incorrect.textContent = '';
+    correct.textContent = '';
+    history.textContent = '';
+    answer.textContent = '';
     errorMessage.textContent = '';
-    if (!isNumber(Number(userInput.value))) {
-    errorMessage.textContent = `数字 ${digitNumber.value} 桁でを入力してください`;
+
+    sumChallenge = 0;
+    userInput.value = '';
+}
+
+
+/**
+ * 新しい問題を作成する
+ */
+function createNextQuestion() {
+    const nextResult = generateRandomNumber(Number(digitNumberElement.value));
+
+    array = nextResult.array;
+    textNumber = nextResult.textNumber;
+    digitNumber = nextResult.number;
+
+    console.log(`Array of digits: ${array}`);
+}
+
+
+/**
+ * 現在の桁数を表示する
+ */
+function updateDigitTitle() {
+    selectNumberTitle.textContent =
+        `現在選択されている桁数は ${digitNumberElement.value} 桁です`;
+}
+
+
+/**
+ * 桁数を変更したとき
+ */
+selectNumber.addEventListener('click', () => {
+    resetGame();
+    createNextQuestion();
+    updateDigitTitle();
+
+    userInput.focus();
+});
+
+
+/**
+ * 次の問題へ進む
+ */
+nextButton.addEventListener('click', () => {
+    resetGame();
+    createNextQuestion();
+    updateDigitTitle();
+
+    userInput.focus();
+});
+
+
+/**
+ * 入力された数字を判定する
+ */
+button.addEventListener('click', () => {
+    errorMessage.textContent = '';
+
+    const input = userInput.value;
+    const requiredDigits = Number(digitNumberElement.value);
+
+    // 入力された数字が正しい桁数か確認
+    if (!isNumber(input, requiredDigits)) {
+        errorMessage.textContent =
+            `${requiredDigits}桁の数字を入力してください`;
+
+        userInput.focus();
+        return;
     }
-    else if (isNumber(Number(userInput.value))) {
+
     sumChallenge += 1;
+
+    const userInputArray = input
+        .split('')
+        .map((digit) => Number(digit));
+
     let hit = 0;
     let blow = 0;
 
-    for (let i = 0; i < digitNumber.value; i++) {
+    // ヒットを数える
+    for (let i = 0; i < requiredDigits; i++) {
         if (userInputArray[i] === array[i]) {
             hit += 1;
         }
     }
-    // ② 正解と入力に、それぞれの数字が何個あるか数える
+
+    // 正解と入力に同じ数字が何個あるか調べる
     for (let number = 0; number <= 9; number++) {
         let correctCount = 0;
         let inputCount = 0;
 
-        for (let i = 0; i < digitNumber.value; i++) {
+        for (let i = 0; i < requiredDigits; i++) {
             if (array[i] === number) {
                 correctCount += 1;
             }
@@ -83,24 +137,31 @@ button.addEventListener('click', function(event) {
             }
         }
 
-        // ③ 共通している個数の少ない方を加える
         blow += Math.min(correctCount, inputCount);
     }
+
+    // ヒットとして数えたものをブローから除く
     blow -= hit;
-    incorrect.textContent = "挑戦回数:" + sumChallenge;
+
+    incorrect.textContent = `挑戦回数: ${sumChallenge}`;
     correct.textContent = `${hit}ヒット ${blow}ブロー`;
-    
+
+    // 履歴を追加
     const historyItem = document.createElement('li');
-    historyItem.textContent = `${userInput.value}　　 ${hit}ヒット ${blow}ブロー`;
+
+    historyItem.textContent =
+        `${input}　　 ${hit}ヒット ${blow}ブロー`;
+
     history.appendChild(historyItem);
-    }
-    userInput.value = "";
+
+    userInput.value = '';
     userInput.focus();
-}); 
+});
 
 
-answerButton.addEventListener("click", function() {
+/**
+ * 正解を表示する
+ */
+answerButton.addEventListener('click', () => {
     answer.textContent = `正解は ${textNumber} です`;
-})
-
-
+});
