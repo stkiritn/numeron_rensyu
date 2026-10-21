@@ -87,16 +87,6 @@ nextButton.addEventListener('click', () => {
     userInput.focus();
 });
 
-userInput.addEventListener('keydown', (event) => {
-        // 押されたキーが "Enter" かどうか判定
-        if (event.key === 'Enter') {
-            // 意図しないフォーム送信などのデフォルト動作を防ぐ
-            event.preventDefault();
-
-            // 「入力」ボタンをプログラム側でクリックさせる
-            clickButton.click();
-        }
-    });
 
 /**
  * 入力された数字を判定する
@@ -162,7 +152,7 @@ button.addEventListener('click', () => {
     historyItem.textContent =
         `${input}　　 ${hit}ヒット ${blow}ブロー`;
 
-    history.prepend(historyItem);
+    history.appendChild(historyItem);
 
     userInput.value = '';
     userInput.focus();
