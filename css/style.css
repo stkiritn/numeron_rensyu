@@ -76,3 +76,30 @@ aside>section {
     font-size: 15px;
     padding: 10px;
 }
+
+
+/* ==========================================
+   スマホ対応（画面幅が768px以下の場合）
+   ========================================== */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    #userInput,
+    #clickButton {
+        width: 100%; /* スマホでは画面いっぱいに広げる */
+        height: 50px;
+    }
+
+    .tab-menu {
+        flex-direction: column; /* メニューボタンを縦並びにする */
+    }
+
+    .tab-menu a,
+    #switch-button {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
