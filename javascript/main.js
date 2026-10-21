@@ -162,7 +162,7 @@ button.addEventListener('click', () => {
     historyItem.textContent =
         `${input}　　 ${hit}ヒット ${blow}ブロー`;
 
-    history.appendChild(historyItem);
+    history.prepend(historyItem);
 
     userInput.value = '';
     userInput.focus();
