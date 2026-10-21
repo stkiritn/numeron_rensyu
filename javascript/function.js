@@ -19,20 +19,24 @@ export function isNumber(input, digitNumber) {
  * @returns {{array: number[], textNumber: string, number: number}}
  */
 export function generateRandomNumber(digitNumber = 4) {
-    const min = digitNumber === 1
-        ? 0
-        : 10 ** (digitNumber - 1);
+ const digits = new Set();
 
-    const max = 10 ** digitNumber - 1;
+    while (digits.size < digitNumber) {
+        const digit = Math.floor(Math.random() * 10);
+        digits.add(digit);
+    }
 
-    const randomNumber =
-        Math.floor(Math.random() * (max - min + 1)) + min;
+    const array = [...digits];
 
-    const textNumber = String(randomNumber);
+    // 1桁目を0にしたくない場合
+    if (digitNumber > 1 && array[0] === 0) {
+        const nonZeroIndex = array.findIndex((digit) => digit !== 0);
 
-    const array = textNumber
-        .split('')
-        .map((digit) => Number(digit));
+        [array[0], array[nonZeroIndex]] =
+            [array[nonZeroIndex], array[0]];
+    }
+
+    const textNumber = array.join('');
 
     return {
         array,
