@@ -7,67 +7,70 @@
 		<link rel="stylesheet" href="../css/style.css">
 	</head>
 	<body>
-		<header>
-		</header>
-		<main>
-			<input type="number" id="userInput" min="1000" max="9999" placeholder="数字を入力してください">
-			<input type="button" id="clickButton" value="入力">
-			<p id="errorMessage"></p>
-			<section id="firstResult">
-				<h2>結果</h2>
-				<p id="incorrect"></p>
-				<p id="correct"></p>
-			</section>
-			<section>
-				<h2>履歴</h2>
-				<ul id="history">
-				</ul>
-			</section>
-		</main>
-		<aside id="aside">
-			<section id="rule">
-				<h2>ルール</h2>
-				<p>4桁の数字を当てるゲームです。</p>
-				<p>ヒット: 数字と位置が一致</p>
-				<p>ブロー: 数字は一致するが位置が違う</p>
-				<p>千の位は0以外の数字です</p>
-				<p id="right-message"></p>
-			</section>
-			<section>
-				<h2 id="selectNumberTitle">
-				</h2>
-				<select id="digitNumber">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4" selected>4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-				</select>
+		<div class="content">
+			<header>
+			</header>
+			<main>
+				<input type="number" id="userInput" min="1000" max="9999" placeholder="数字を入力してください">
+				<input type="button" id="clickButton" value="入力">
+				<p id="errorMessage"></p>
+				<section id="firstResult">
+					<h2>結果</h2>
+					<p id="incorrect"></p>
+					<p id="correct"></p>
+				</section>
+				<section>
+					<h2>履歴</h2>
+					<ul id="history">
+					</ul>
+				</section>
+			</main>
+			<aside id="aside">
+				<section id="rule">
+					<h2>ルール</h2>
+					<p>4桁の数字を当てるゲームです。</p>
+					<p>ヒット: 数字と位置が一致</p>
+					<p>ブロー: 数字は一致するが位置が違う</p>
+					<p>千の位は0以外の数字です</p>
+					<p class="underline">数字に同じ数字は入りません</p><p class="underline">数字に同じ数字は入りません</p>
+					<p id="right-message"></p>
+				</section>
+				<section>
+					<h2 id="selectNumberTitle">
+					</h2>
+					<select id="digitNumber">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4" selected>4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+					</select>
 
-				<input type="button" id="selectNumber" value="桁数を選択">
-			</section>
-			<section>
-				<h2 id="answer">
-				</h2>
-				<input type="button" id="showAnswer" value="正解を表示">
-			</section>
-			<section>
-				<h2 id="nextQuestion"></h2>
-				<input type="button" id="nextButton" value="次の問題を表示">
-			</section>
-			<section>
-				<nav class="tab-menu">
-					<a href="sub.html" class="active">数字の被りありに挑戦，未完成</a>
-				</nav>
-			</section>
-		</aside>
+					<input type="button" id="selectNumber" value="桁数を選択">
+				</section>
+				<section>
+					<h2 id="answer">
+					</h2>
+					<input type="button" id="showAnswer" value="正解を表示">
+				</section>
+				<section>
+					<h2 id="nextQuestion"></h2>
+					<input type="button" id="nextButton" value="次の問題を表示">
+				</section>
+				<section>
+					<nav class="tab-menu">
+						<a href="sub.html" class="active">数字の被りありに挑戦，未完成</a>
+					</nav>
+				</section>
+			</aside>
 
-		<footer>
-		</footer>
+			<footer>
+			</footer>
+		</div>
 		<script type="module" src="../javascript/main.js"></script>
 	</body>
 </html>

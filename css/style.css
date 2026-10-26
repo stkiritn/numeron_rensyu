@@ -1,15 +1,29 @@
 body {
-    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    text-align: center;
+}
+
+p {
+    font-size: 20sspx;
+}
+.underline {
+    text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    flex: 1;
 }
 
 #userInput {
     text-align: center;
     font-size: 30px;
-    width: 500px;
-    height: 100px;
+    width: 550px;
+    height: 120px;
 }
 
 /* aタグをボタンっぽく見せるスタイル */
@@ -21,7 +35,7 @@ body {
     text-decoration: none; /* 下線を消す */
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 .tab-menu:hover {
@@ -30,7 +44,7 @@ body {
 
 #clickButton {
     width: 200px;
-    height: 100px;
+    height: 120px;
 }
 
 #firstResult {
@@ -69,7 +83,7 @@ aside>section {
     border: 3px solid #c6c3ef;
     text-align: center;
     font-size: 15px;
-    margin-top: 20px;
+    margin-top: 30px;
     font-weight: bold;
 }
 
